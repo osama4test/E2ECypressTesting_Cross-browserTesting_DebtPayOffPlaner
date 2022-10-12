@@ -1,0 +1,9 @@
+{
+  "nickName": "Tom",
+  "currentBalance": "1000",
+  "annualPercentageRate": "10",
+  "minimumPayment": "100",
+  "calenderYear": "2023",
+  "calenderMonth": "DEC",
+  "calenderMonthAndDay": "25"
+}

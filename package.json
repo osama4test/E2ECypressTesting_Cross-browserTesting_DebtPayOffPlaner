@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "cypress": "^10.10.0",
+    "cypress-image-diff-js": "^1.22.0",
+    "typescript": "^4.8.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress:open": "cypress open",
+    "headTest": "npx cypress run --headed",
+    "googleTest": "npx cypress run --browser chrome",
+    "dashboardTest": "npx cypress run --record --key 77d40007-5d8e-40a4-810b-06e20ae5b819"
+  }
+}
