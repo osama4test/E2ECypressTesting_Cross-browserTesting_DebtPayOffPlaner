@@ -1,5 +1,6 @@
 import SignInPage from '../pages/signInPage.cy'
 import ValidateAccountPage from '../pages/validateAccountPage.cy'
+import DeptPage from '../pages/deptPage.cy'
 import HomePage from '../pages/homePage.cy'
 
 type NewAccountCredentials = { username: string, password: string, vcode: number, uid: string };
@@ -18,23 +19,38 @@ const serverUrl = URLS[urlTarget].server;
 
 const signIn = new SignInPage()
 const validateAccount = new ValidateAccountPage()
+const deptPage = new DeptPage()
 const homePage = new HomePage()
 
 
+
+
+
 describe('Smoke test', () => {
-    it('verifying home page before debts have been added', async () => {
+    it('verifying debt page  after debt is added', async () => {
 
         /* BEFORE EACH TEST */
+        let value
+        cy.fixture('addDebtDetails').then(function (data) {
+
+            value = data
+
+        })
+
+
+
+
 
         cy.viewport(390, 844);
         // create a new non-validated account in the back-end
         let credentials = await new Promise<NewAccountCredentials>((resolve, reject) => {
-            cy.wait(2000)
             cy.request(serverUrl + '/test-accounts/free').then(response => {
                 expect(response.body).to.have.property("username");
                 resolve(response.body);
             })
         });
+
+
 
         // load the app - should default to the sign-in page
 
@@ -53,12 +69,15 @@ describe('Smoke test', () => {
         validateAccount.validateAccountMethod(credentials.vcode.toString())
 
         // verify that we are on the home page and see the correct greeting and workspace name
-
-        homePage.HomePageMethod()
-
+        cy.get("app-greeting h3").should('have.text', 'Hi QA Test! Primary');
 
 
 
+        deptPage.AddDeptMethod(value.nickName, value.currentBalance, value.annualPercentageRate, value.minimumPayment)
+
+        deptPage.AddCalenderDetails(value.calenderYear, value.calenderMonth, value.calenderMonthAndDay)
+
+        homePage.HomePageMethodAfterDebt()
 
         /* CLEANUP AFTER EACH TEST */
 
@@ -71,5 +90,4 @@ describe('Smoke test', () => {
         });
 
     })
-
 })

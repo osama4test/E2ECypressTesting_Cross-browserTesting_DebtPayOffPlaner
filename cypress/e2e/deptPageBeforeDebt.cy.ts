@@ -1,6 +1,6 @@
 import SignInPage from '../pages/signInPage.cy'
 import ValidateAccountPage from '../pages/validateAccountPage.cy'
-import HomePage from '../pages/homePage.cy'
+import DeptPage from '../pages/deptPage.cy'
 
 type NewAccountCredentials = { username: string, password: string, vcode: number, uid: string };
 
@@ -18,23 +18,37 @@ const serverUrl = URLS[urlTarget].server;
 
 const signIn = new SignInPage()
 const validateAccount = new ValidateAccountPage()
-const homePage = new HomePage()
+const deptPage = new DeptPage()
+
+
+
 
 
 describe('Smoke test', () => {
-    it('verifying home page before debts have been added', async () => {
+    it('verifying debt page before dept is added', async () => {
 
         /* BEFORE EACH TEST */
+        let value
+        cy.fixture('addDebtDetails').then(function (data) {
+
+            value = data
+
+        })
+
+
+
+
 
         cy.viewport(390, 844);
         // create a new non-validated account in the back-end
         let credentials = await new Promise<NewAccountCredentials>((resolve, reject) => {
-            cy.wait(2000)
             cy.request(serverUrl + '/test-accounts/free').then(response => {
                 expect(response.body).to.have.property("username");
                 resolve(response.body);
             })
         });
+
+
 
         // load the app - should default to the sign-in page
 
@@ -53,11 +67,9 @@ describe('Smoke test', () => {
         validateAccount.validateAccountMethod(credentials.vcode.toString())
 
         // verify that we are on the home page and see the correct greeting and workspace name
+        cy.get("app-greeting h3").should('have.text', 'Hi QA Test! Primary');
 
-        homePage.HomePageMethod()
-
-
-
+        deptPage.verifyAddDeptHeader()
 
 
         /* CLEANUP AFTER EACH TEST */
@@ -71,5 +83,4 @@ describe('Smoke test', () => {
         });
 
     })
-
 })

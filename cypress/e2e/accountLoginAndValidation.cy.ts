@@ -3,47 +3,46 @@ import ValidateAccountPage from '../pages/validateAccountPage.cy'
 
 
 
+
 type NewAccountCredentials = { username: string, password: string, vcode: number, uid: string };
 
-const URLS = {
-  remote: {
-    client: "http://54.39.177.218:8080",
-    server: "http://54.39.177.218:3020/api/v2"
-  }
-}
 
 const urlTarget = "remote";
 
-const clientUrl = URLS[urlTarget].client;
-const serverUrl = URLS[urlTarget].server;
+const clientUrl = "http://54.39.177.218:8080";
+const serverUrl = "http://54.39.177.218:3020/api/v2";
 
-const signIn = new SignInPage()
-const validateAccount = new ValidateAccountPage()
 
 
 
 describe('Smoke test', () => {
-
   it('verifying a new user is able to login followed by validation being performed', async () => {
+    const signIn = new SignInPage()
+    const validateAccount = new ValidateAccountPage()
+
 
     /* BEFORE EACH TEST */
 
     cy.viewport(390, 844);
     // create a new non-validated account in the back-end
+
     let credentials = await new Promise<NewAccountCredentials>((resolve, reject) => {
       cy.request(serverUrl + '/test-accounts/free').then(response => {
         expect(response.body).to.have.property("username");
         resolve(response.body);
       })
-    });
 
-    // load the app - should default to the sign-in page
+    });
+    console.log(credentials, "aaasasa")
+
     cy.visit(clientUrl, {
       onBeforeLoad: (win) => {
         win.sessionStorage.clear();
         win.localStorage.clear();
       }
     });
+
+    // load the app - should default to the sign-in page
 
 
     // sign-in

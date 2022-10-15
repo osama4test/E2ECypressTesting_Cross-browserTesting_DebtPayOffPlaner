@@ -33,7 +33,9 @@ class DeptPage {
         this.elements.addFirstDebtBtn().click()
 
         this.elements.debtsHeader().should('have.text', 'Debts ')
-
+        // @ts-ignore
+        //Taking screenshot before depts have been added
+        this.elements.completeDebtAfterPageImg().compareSnapshot({ force: true })
 
 
 
@@ -41,6 +43,7 @@ class DeptPage {
 
     //Adding all the debt details
     AddDeptMethod(nickname, currBal, annPercent, miniPay) {
+        this.elements.addFirstDebtBtn().click()
         this.elements.addDebtBtn().click()
         this.elements.nickNameTextField().type(nickname)
         this.elements.currentBalanceField().type(currBal)
@@ -64,7 +67,7 @@ class DeptPage {
         this.elements.planCard().last().should('be.visible')
         //After Debt is added taking screenshots for compare
         // @ts-ignore
-        this.elements.completeDebtAfterPageImg().compareSnapshot('.wrapper')
+        this.elements.completeDebtAfterPageImg().compareSnapshot('')
 
 
     }
