@@ -1,9 +1,11 @@
 class DeptPage {
 
+    //All the css selectors 
+
     elements = {
 
         addFirstDebtBtn: () => cy.get('.mat-focus-indicator'),
-        // tabNavition: () => cy.get('.tabs div span'),
+
         debtsHeader: () => cy.get('h3'),
         addDebtBtn: () => cy.get('.mobile > app-pro-gated-button > .mat-focus-indicator'),
         nickNameTextField: () => cy.get('#formly_18_input_debt_name_0'),
@@ -15,28 +17,29 @@ class DeptPage {
         calenderAfterOpenYearDropdown: () => cy.get('.mat-calendar-period-button'),
         calenderYear: () => cy.get('.mat-calendar-body td'),
         calenderMonthAndDay: () => cy.get('.mat-calendar-content'),
-        saveBtn: () => cy.get('.add-simple-button')
+        saveBtn: () => cy.get('.add-simple-button'),
 
+
+
+        //Debt plan created elements
+        planCard: () => cy.get('app-account-card'),
+        completeDebtAfterPageImg: () => cy.get('.wrapper'),
+        //below code path to be changed
+        balanceByCategoryImg: () => cy.get('.swiper-slide-visible > .chart-content > app-pie-chart.ng-star-inserted > .pie-chart > .chart > .chartjs-render-monitor')
     }
 
-
+    //Clicking add debt button for adding debt details 
     verifyAddDeptHeader() {
         this.elements.addFirstDebtBtn().click()
-        // this.elements.tabNavition().each(function ($el, index, $listsOfElements) {
-        //     // cy.log($el.text())
-
-        //     if ($el.text() == 'Debts') {
-
-        //         cy.wrap($el).click()
-        //     }
-        // })
 
         this.elements.debtsHeader().should('have.text', 'Debts ')
 
 
 
+
     }
 
+    //Adding all the debt details
     AddDeptMethod(nickname, currBal, annPercent, miniPay) {
         this.elements.addDebtBtn().click()
         this.elements.nickNameTextField().type(nickname)
@@ -48,7 +51,7 @@ class DeptPage {
 
 
     }
-
+    //Adding calender details after calender opens
     AddCalenderDetails(calenYear, calenMon, calenDay) {
         this.elements.datePicker().click()
         this.elements.calenderAfterOpen().click()
@@ -57,9 +60,11 @@ class DeptPage {
         this.elements.calenderMonthAndDay().contains(calenMon).click()
         this.elements.calenderMonthAndDay().contains(calenDay).click()
         this.elements.saveBtn().click()
-        cy.wait(2000)
-        cy.get('app-account-card').last().should('be.visible')
-
+        cy.wait(4000)
+        this.elements.planCard().last().should('be.visible')
+        //After Debt is added taking screenshots for compare
+        // @ts-ignore
+        this.elements.completeDebtAfterPageImg().compareSnapshot('.wrapper')
 
 
     }

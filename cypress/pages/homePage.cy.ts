@@ -5,33 +5,25 @@ class HomePage {
         homePageWelcomeText: () => cy.get("app-greeting h3"),
         addmyFirstDebtBtn: () => cy.get(".mat-button-wrapper"),
         addFirstDebtBtn: () => cy.get('.mat-focus-indicator'),
-        tabNavition: () => cy.get('.tabs div span')
+        tabNavition: () => cy.get('.tabs div span'),
+        debtFreeCountDownContainer: () => cy.get('.bg-1'),
+        payOfProgressContainer: () => cy.get('.payoff-progress'),
+        homePageBeforeDeptImg: () => cy.get('.content-wrapper')
     }
     HomePageMethod() {
 
 
         this.elements.homePageWelcomeText().should('have.text', 'Hi QA Test! Primary');
         this.elements.addmyFirstDebtBtn().should('be.visible').contains('Add my first debt');
-        this.elements.addFirstDebtBtn().should('be.visible').click()
-        // this.elements.tabNavition().should('have.length', '10')
+        this.elements.debtFreeCountDownContainer().should('be.visible').contains('DEBT-FREE COUNTDOWN');
+        this.elements.payOfProgressContainer().should('be.visible').contains('Payoff progress');
 
+        //@ts-ignore
+        this.elements.homePageBeforeDeptImg().compareSnapshot('.content-wrapper')
 
 
     }
-    // GoToDebtsPage() {
 
-
-    //     this.elements.tabNavition().each(function ($el, index, $listsOfElements) {
-    //         // cy.log($el.text())
-
-    //         if ($el.text() == 'Debts') {
-
-    //             cy.wrap($el).click()
-    //         }
-    //     })
-
-
-    // }
 
 }
 export default HomePage
