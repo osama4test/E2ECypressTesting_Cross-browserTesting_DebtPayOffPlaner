@@ -35,7 +35,7 @@ class DeptPage {
         this.elements.debtsHeader().should('have.text', 'Debts ')
         // @ts-ignore
         //Taking screenshot before depts have been added
-        this.elements.completeDebtAfterPageImg().compareSnapshot({ force: true })
+        this.elements.completeDebtAfterPageImg().compareSnapshot('Before Debt Is Added', 5)
 
 
 
@@ -67,7 +67,7 @@ class DeptPage {
         this.elements.planCard().last().should('be.visible')
         //After Debt is added taking screenshots for compare
         // @ts-ignore
-        this.elements.completeDebtAfterPageImg().compareSnapshot('')
+        this.elements.completeDebtAfterPageImg().compareSnapshot('After Debt Is Added', 5)
 
 
     }

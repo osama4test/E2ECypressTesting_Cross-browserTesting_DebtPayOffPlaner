@@ -21,7 +21,7 @@ class HomePage {
         this.elements.payOfProgressContainer().should('be.visible').contains('Payoff progress');
 
         //@ts-ignore
-        this.elements.homePageBeforeDeptImg().compareSnapshot({ force: true })
+        this.elements.homePageBeforeDeptImg().compareSnapshot('Home Page Before Debt', 5)
 
 
     }
@@ -29,8 +29,9 @@ class HomePage {
     HomePageMethodAfterDebt() {
         this.elements.homeBtn().click()
         //@ts-ignore
+        // this.elements.homePageAfterDeptImg().compareSnapshot()
 
-        this.elements.homePageAfterDeptImg().compareSnapshot()
+        this.elements.homePageAfterDeptImg().compareSnapshot('Home Page After Debt', 5)
 
 
 

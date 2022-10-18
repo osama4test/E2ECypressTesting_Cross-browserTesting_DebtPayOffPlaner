@@ -1,32 +1,33 @@
 import SignInPage from '../pages/signInPage.cy'
 import ValidateAccountPage from '../pages/validateAccountPage.cy'
 import DeptPage from '../pages/deptPage.cy'
+import DeleteAccount from '../pages/deleteAccount.cy'
 
-type NewAccountCredentials = { username: string, password: string, vcode: number, uid: string };
+type NewAccountCredentials = {
+    username: string,
+    password: string,
+    vcode: number,
+    uid: string
+};
 
-const URLS = {
-    remote: {
-        client: "http://54.39.177.218:8080",
-        server: "http://54.39.177.218:3020/api/v2"
-    }
-}
 
-const urlTarget = "remote";
 
-const clientUrl = URLS[urlTarget].client;
-const serverUrl = URLS[urlTarget].server;
+const clientUrl = "http://54.39.177.218:8080";
+const serverUrl = "http://54.39.177.218:3020/api/v2";
 
-const signIn = new SignInPage()
-const validateAccount = new ValidateAccountPage()
-const deptPage = new DeptPage()
 
 
 
 
 
 describe('Smoke test', () => {
-    it('verifying debt page  after debt is added', async () => {
 
+
+    it('verifying debt page  after debt is added', async () => {
+        const signIn = new SignInPage()
+        const validateAccount = new ValidateAccountPage()
+        const deptPage = new DeptPage()
+        const deleteAccount = new DeleteAccount()
         /* BEFORE EACH TEST */
         let value
         cy.fixture('addDebtDetails').then(function (data) {

@@ -1,39 +1,35 @@
 import SignInPage from '../pages/signInPage.cy'
 import ValidateAccountPage from '../pages/validateAccountPage.cy'
+import DeleteAccount from '../pages/deleteAccount.cy'
 
 
+type NewAccountCredentials = {
+  username: string,
+  password: string,
+  vcode: number,
+  uid: string
+};
 
 
-type NewAccountCredentials = { username: string, password: string, vcode: number, uid: string };
-
-
-const urlTarget = "remote";
 
 const clientUrl = "http://54.39.177.218:8080";
 const serverUrl = "http://54.39.177.218:3020/api/v2";
-
-
-
+let credentials
 
 describe('Smoke test', () => {
-  it('verifying a new user is able to login followed by validation being performed', async () => {
-    const signIn = new SignInPage()
-    const validateAccount = new ValidateAccountPage()
 
+  /* BEFORE EACH TEST */
 
-    /* BEFORE EACH TEST */
-
+  // create a new non-validated account in the back-end
+  beforeEach("function", async () => {
     cy.viewport(390, 844);
-    // create a new non-validated account in the back-end
-
-    let credentials = await new Promise<NewAccountCredentials>((resolve, reject) => {
+    credentials = await new Promise<NewAccountCredentials>((resolve) => {
       cy.request(serverUrl + '/test-accounts/free').then(response => {
         expect(response.body).to.have.property("username");
         resolve(response.body);
       })
 
     });
-    console.log(credentials, "aaasasa")
 
     cy.visit(clientUrl, {
       onBeforeLoad: (win) => {
@@ -42,8 +38,14 @@ describe('Smoke test', () => {
       }
     });
 
-    // load the app - should default to the sign-in page
+  })
 
+
+
+  it('verifying a new user is able to login followed by validation being performed', async () => {
+    const signIn = new SignInPage()
+    const validateAccount = new ValidateAccountPage()
+    const deleteAccount = new DeleteAccount()
 
     // sign-in
     signIn.SignInMethod(credentials.username, credentials.password)
@@ -56,16 +58,23 @@ describe('Smoke test', () => {
 
 
 
-    /* CLEANUP AFTER EACH TEST */
+    //account deleted
+    deleteAccount.DeleteAccountMethod(credentials.password)
+
+    //wait added for the account to get deleted firs then the session
+    cy.wait(4000)
 
     // must always delete the created account even if any of the above testing fails
-    await new Promise<void>((resolve, reject) => {
+    await new Promise<void>((resolve) => {
       cy.request("DELETE", `${serverUrl}/test-accounts/uid/${credentials.uid}`).then(response => {
         expect(response.status).to.be.equal(200);
         resolve();
       })
     });
 
+
   })
+
+
 
 })

@@ -1,1 +1,3 @@
 node_modules
+cypress-visual-screenshots/comparison
+cypress-visual-screenshots/diff

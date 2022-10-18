@@ -25,7 +25,7 @@ const deptPage = new DeptPage()
 
 
 describe('Smoke test', () => {
-    it('verifying debt page before dept is added', async () => {
+    it('verifying debt page before debt is added', async () => {
 
         /* BEFORE EACH TEST */
         let value
