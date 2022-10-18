@@ -1,4 +1,4 @@
 node_modules
 cypress-visual-screenshots/comparison
 cypress-visual-screenshots/diff
-cypress-visual-report
+./cypress-visual-report
