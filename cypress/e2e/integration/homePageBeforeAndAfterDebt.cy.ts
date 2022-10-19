@@ -1,6 +1,6 @@
 import SignInPage from '../../pages/signInPage.cy'
 import ValidateAccountPage from '../../pages/validateAccountPage.cy'
-import DeptPage from '../../pages/debtPage.cy'
+import DebtPage from '../../pages/debtPage.cy'
 import HomePage from '../../pages/homePage.cy'
 import DeleteAccount from '../../pages/deleteAccount.cy'
 
@@ -13,7 +13,7 @@ const deleteAccount = new DeleteAccount()
 const signIn = new SignInPage()
 const validateAccount = new ValidateAccountPage()
 const homePage = new HomePage()
-const deptPage = new DeptPage()
+const debtPage = new DebtPage()
 
 
 
@@ -88,9 +88,9 @@ describe('Smoke test', () => {
         cy.wait(3000)
         // verify that we are on the home page and see the correct greeting and workspace name
 
-        deptPage.AddDeptMethod(value.nickName, value.currentBalance, value.annualPercentageRate, value.minimumPayment)
+        debtPage.AddDebtMethod(value.nickName, value.currentBalance, value.annualPercentageRate, value.minimumPayment)
 
-        deptPage.AddCalenderDetails(value.calenderYear, value.calenderMonth, value.calenderMonthAndDay)
+        debtPage.AddCalenderDetails(value.calenderYear, value.calenderMonth, value.calenderMonthAndDay)
 
         cy.wait(2000)
 

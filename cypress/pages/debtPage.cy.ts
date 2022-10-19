@@ -1,4 +1,4 @@
-class DeptPage {
+class DebtPage {
 
     //All the css selectors 
 
@@ -32,20 +32,20 @@ class DeptPage {
     }
 
     //Clicking add debt button for adding debt details 
-    verifyAddDeptHeader() {
+    verifyAddDebtHeader() {
         this.elements.addFirstDebtBtn().click()
 
         this.elements.debtsHeader().should('have.text', 'Debts ')
         // @ts-ignore
-        //Taking screenshot before depts have been added
-        this.elements.completeDebtAfterPageImg().compareSnapshot('Before Debt Is Added', 5)
+        //Taking screenshot before debts have been added
+        this.elements.completeDebtAfterPageImg().compareSnapshot('Before Debt Is Added', 0.5)
 
 
 
     }
 
     //Adding all the debt details
-    AddDeptMethod(nickname, currBal, annPercent, miniPay) {
+    AddDebtMethod(nickname, currBal, annPercent, miniPay) {
         this.elements.addFirstDebtBtn().click()
         this.elements.addDebtBtn().click()
         this.elements.nickNameTextField().type(nickname)
@@ -71,7 +71,7 @@ class DeptPage {
 
 
     }
-    AfterDeptAddedMethod() {
+    AfterDebtAddedMethod() {
 
         this.elements.planCard().last().should('be.visible')
         this.elements.balance().should('have.text', '$1,000.00')
@@ -80,9 +80,9 @@ class DeptPage {
 
         //After Debt is added taking screenshots for compare
         // @ts-ignore
-        this.elements.completeDebtAfterPageImg().compareSnapshot('After Debt Is Added', 5)
+        this.elements.completeDebtAfterPageImg().compareSnapshot('After Debt Is Added', 0.5)
 
     }
 
 }
-export default DeptPage
+export default DebtPage
