@@ -9,3 +9,7 @@
 -Select a browser and click "Start E2E testing"
 -This will open a new window and you should see a list of tests.
 -Double click on the test you want to run.
+
+
+-For Parallel Testing:
+Execute "npm run cy:parallel" in terminal
