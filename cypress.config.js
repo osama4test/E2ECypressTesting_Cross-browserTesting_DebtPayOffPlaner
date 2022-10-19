@@ -11,8 +11,8 @@ module.exports = defineConfig({
 
       getCompareSnapshotsPlugin(on, config);
     },
-    // baseUrl: 'http://54.39.177.218:8080/#/public/sign-in',
-    specPattern: 'cypress/e2e/*.cy.ts'
+    //  baseUrl: 'http://54.39.177.218:8080',
+    specPattern: 'cypress/e2e/integration/*.cy.ts'
 
   },
   video: false

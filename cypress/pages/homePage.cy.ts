@@ -8,9 +8,9 @@ class HomePage {
         tabNavition: () => cy.get('.tabs div span'),
         debtFreeCountDownContainer: () => cy.get('.bg-1'),
         payOfProgressContainer: () => cy.get('.payoff-progress'),
-        homePageBeforeDeptImg: () => cy.get('.content-wrapper'),
+        homePageImg: () => cy.get('.content-wrapper'),
         homeBtn: () => cy.get('.tabs > :nth-child(1)'),
-        homePageAfterDeptImg: () => cy.get('.content-wrapper')
+        homePage_DeptFreeCountDown: () => cy.get('.content-wrapper')
     }
     HomePageMethod() {
 
@@ -21,7 +21,7 @@ class HomePage {
         this.elements.payOfProgressContainer().should('be.visible').contains('Payoff progress');
 
         //@ts-ignore
-        this.elements.homePageBeforeDeptImg().compareSnapshot('Home Page Before Debt', 5)
+        this.elements.homePageImg().compareSnapshot('Home Page Before Debt', 5)
 
 
     }
@@ -31,7 +31,7 @@ class HomePage {
         //@ts-ignore
         // this.elements.homePageAfterDeptImg().compareSnapshot()
 
-        this.elements.homePageAfterDeptImg().compareSnapshot('Home Page After Debt', 5)
+        this.elements.homePageImg().compareSnapshot('Home Page After Debt', 5)
 
 
 

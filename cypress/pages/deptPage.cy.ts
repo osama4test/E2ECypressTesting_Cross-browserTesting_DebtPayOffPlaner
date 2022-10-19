@@ -23,6 +23,9 @@ class DeptPage {
 
         //Debt plan created elements
         planCard: () => cy.get('app-account-card'),
+        balance: () => cy.get('.top > h4'),
+        miniumum: () => cy.get('.bot > :nth-child(1) > .body-heavy'),
+        apr: () => cy.get(':nth-child(2) > .body-heavy'),
         completeDebtAfterPageImg: () => cy.get('.wrapper'),
         //below code path to be changed
         balanceByCategoryImg: () => cy.get('.swiper-slide-visible > .chart-content > app-pie-chart.ng-star-inserted > .pie-chart > .chart > .chartjs-render-monitor')
@@ -64,11 +67,20 @@ class DeptPage {
         this.elements.calenderMonthAndDay().contains(calenDay).click()
         this.elements.saveBtn().click()
         cy.wait(4000)
+
+
+
+    }
+    AfterDeptAddedMethod() {
+
         this.elements.planCard().last().should('be.visible')
+        this.elements.balance().should('have.text', '$1,000.00')
+        this.elements.miniumum().should('have.text', '$100.00')
+        this.elements.apr().should('have.text', '10.00%')
+
         //After Debt is added taking screenshots for compare
         // @ts-ignore
         this.elements.completeDebtAfterPageImg().compareSnapshot('After Debt Is Added', 5)
-
 
     }
 
