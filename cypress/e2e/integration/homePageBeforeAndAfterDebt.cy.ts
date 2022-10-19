@@ -1,19 +1,26 @@
 import SignInPage from '../../pages/signInPage.cy'
 import ValidateAccountPage from '../../pages/validateAccountPage.cy'
-import DeptPage from '../../pages/deptPage.cy'
+import DeptPage from '../../pages/debtPage.cy'
+import HomePage from '../../pages/homePage.cy'
 import DeleteAccount from '../../pages/deleteAccount.cy'
-import HomePage from '../../pages/homePage.cy';
+
 
 const clientUrl = "http://54.39.177.218:8080";
 const serverUrl = "http://54.39.177.218:3020/api/v2";
 
+
+const deleteAccount = new DeleteAccount()
 const signIn = new SignInPage()
 const validateAccount = new ValidateAccountPage()
-const deptPage = new DeptPage()
-const deleteAccount = new DeleteAccount()
 const homePage = new HomePage()
+const deptPage = new DeptPage()
+
+
+
 
 describe('Smoke test', () => {
+
+
 
     let credentials
     let value
@@ -39,8 +46,6 @@ describe('Smoke test', () => {
 
     afterEach(() => {
         /* CLEANUP AFTER EACH TEST */
-        homePage.HomePageMethodAfterDebt()
-
         deleteAccount.DeleteAccountMethod(credentials.password)
         cy.wait(3000)
         // must always delete the created account even if any of the above testing fails
@@ -51,10 +56,10 @@ describe('Smoke test', () => {
     })
 
 
+    it('verifying home page before debts have been added', () => {
 
-    it('Verifying debt page before debt is added', () => {
 
-        /* BEFORE EACH TEST */
+
         // sign-in
         signIn.SignInMethod(credentials.username, credentials.password)
 
@@ -62,11 +67,14 @@ describe('Smoke test', () => {
         validateAccount.validateAccountMethod(credentials.vcode.toString())
         cy.wait(3000)
 
-        deptPage.verifyAddDeptHeader()
+        // verify that we are on the home page and see the correct greeting and workspace name
 
+        homePage.HomePageMethod()
 
 
     })
+
+
 
     it('verifying debt page  after debt is added', () => {
 
@@ -84,9 +92,12 @@ describe('Smoke test', () => {
 
         deptPage.AddCalenderDetails(value.calenderYear, value.calenderMonth, value.calenderMonthAndDay)
 
-        deptPage.AfterDeptAddedMethod()
+        cy.wait(2000)
 
+        homePage.HomePageMethodAfterDebt()
 
 
     })
+
+
 })
