@@ -12,6 +12,14 @@
     "cypress:open": "cypress open",
     "headTest": "npx cypress run --headed",
     "googleTest": "npx cypress run --browser chrome",
-    "dashboardTest": "npx cypress run --record --key 8964954e-cd3b-40c2-9228-590a08290363"
+    "dashboardTest": "npx cypress run --record --key 8964954e-cd3b-40c2-9228-590a08290363",
+    "jenkins-parallel":"npx cypress run --record --key 8964954e-cd3b-40c2-9228-590a08290363 --parallel",
+    "cy:run": "cypress run",
+    "cy:parallel": "node_modules/.bin/cypress-parallel -s cy:run -t 1 -d 'cypress/e2e/integration/*.cy.ts'"
+
+  },
+  "dependencies": {
+    "cypress-parallel": "^0.9.1"
   }
+  
 }

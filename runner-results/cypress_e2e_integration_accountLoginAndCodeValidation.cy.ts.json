@@ -1,0 +1,10 @@
+{
+  "suites": 1,
+  "tests": 1,
+  "passes": 0,
+  "pending": 0,
+  "failures": 2,
+  "start": "2022-10-19T06:19:24.848Z",
+  "duration": 311275,
+  "file": "cypress\\e2e\\integration\\accountLoginAndCodeValidation.cy.ts"
+}

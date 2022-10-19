@@ -27,10 +27,10 @@ class HomePage {
     }
 
     HomePageMethodAfterDebt() {
+        cy.wait(2000)
         this.elements.homeBtn().click()
+        cy.wait(2000)
         //@ts-ignore
-        // this.elements.homePageAfterDeptImg().compareSnapshot()
-
         this.elements.homePageImg().compareSnapshot('Home Page After Debt', 5)
 
 

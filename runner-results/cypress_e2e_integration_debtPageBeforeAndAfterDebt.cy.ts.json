@@ -1,0 +1,10 @@
+{
+  "suites": 1,
+  "tests": 1,
+  "passes": 0,
+  "pending": 0,
+  "failures": 1,
+  "start": "2022-10-19T06:24:38.818Z",
+  "duration": 34412,
+  "file": "cypress\\e2e\\integration\\debtPageBeforeAndAfterDebt.cy.ts"
+}
