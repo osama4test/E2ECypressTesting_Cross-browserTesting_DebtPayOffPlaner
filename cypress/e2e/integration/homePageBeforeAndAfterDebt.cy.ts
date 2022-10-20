@@ -46,8 +46,7 @@ describe('Smoke test', () => {
 
     afterEach(() => {
         /* CLEANUP AFTER EACH TEST */
-        deleteAccount.DeleteAccountMethod(credentials.password)
-        cy.wait(3000)
+
         // must always delete the created account even if any of the above testing fails
         cy.request("DELETE", `${serverUrl}/test-accounts/uid/${credentials.uid}`)
             .then(response => {
@@ -95,7 +94,8 @@ describe('Smoke test', () => {
         cy.wait(2000)
 
         homePage.HomePageMethodAfterDebt()
-
+        cy.wait(2000)
+        deleteAccount.DeleteAccountMethod(credentials.password)
 
     })
 

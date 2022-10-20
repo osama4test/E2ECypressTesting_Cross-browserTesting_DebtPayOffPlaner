@@ -23,6 +23,9 @@ describe('Smoke test', () => {
 
   let credentials
   let value
+
+
+
   beforeEach(() => {
     cy.viewport(390, 844);
 
@@ -41,12 +44,12 @@ describe('Smoke test', () => {
         win.localStorage.clear();
       }
     });
+
   });
 
   afterEach(() => {
     /* CLEANUP AFTER EACH TEST */
 
-    deleteAccount.DeleteAccountMethod(credentials.password)
     cy.wait(3000)
     // must always delete the created account even if any of the above testing fails
     cy.request("DELETE", `${serverUrl}/test-accounts/uid/${credentials.uid}`)
@@ -63,9 +66,13 @@ describe('Smoke test', () => {
     // validate account
     validateAccount.validateAccountMethod(credentials.vcode.toString())
 
-    cy.wait(3000)
+    cy.wait(2000)
     // verify that we are on the home page and see the correct greeting and workspace name
     cy.get("app-greeting h3").should('have.text', 'Hi QA Test! Primary');
+
+    cy.wait(2000)
+
+    deleteAccount.DeleteAccountMethod(credentials.password)
 
 
   })

@@ -39,10 +39,7 @@ describe('Smoke test', () => {
 
     afterEach(() => {
         /* CLEANUP AFTER EACH TEST */
-        homePage.HomePageMethodAfterDebt()
 
-        deleteAccount.DeleteAccountMethod(credentials.password)
-        cy.wait(3000)
         // must always delete the created account even if any of the above testing fails
         cy.request("DELETE", `${serverUrl}/test-accounts/uid/${credentials.uid}`)
             .then(response => {
@@ -75,9 +72,10 @@ describe('Smoke test', () => {
         signIn.SignInMethod(credentials.username, credentials.password)
 
         // validate account
+        cy.wait(2000)
         validateAccount.validateAccountMethod(credentials.vcode.toString())
 
-        cy.wait(3000)
+        cy.wait(2000)
         // verify that we are on the home page and see the correct greeting and workspace name
 
         debtPage.AddDebtMethod(value.nickName, value.currentBalance, value.annualPercentageRate, value.minimumPayment)
@@ -86,7 +84,10 @@ describe('Smoke test', () => {
 
         debtPage.AfterDebtAddedMethod()
 
+        homePage.HomePageMethodAfterDebt()
+        cy.wait(2000)
 
+        deleteAccount.DeleteAccountMethod(credentials.password)
 
     })
 })
